@@ -2,7 +2,8 @@ class ItemProcessor
   PROCESSORS_MAP = {
     'Aged Brie' => 'AgedBrieProcessor',
     'Sulfuras, Hand of Ragnaros' => 'SulfurasProcessor',
-    'Backstage passes to a TAFKAL80ETC concert' => 'BackstageProcessor'
+    'Backstage passes to a TAFKAL80ETC concert' => 'BackstageProcessor',
+    'Conjured apple' => 'ConjuredProcessor'
   }.freeze
   DEFAULT_PROCESSOR = 'RegularItemProcessor'.freeze
 
@@ -101,6 +102,24 @@ class BackstageProcessor < ItemProcessor
       1
     end
     quality + increment
+  end
+
+end
+
+class ConjuredProcessor < ItemProcessor
+
+  def new_sell_in
+    sell_in - 1
+  end
+
+  def new_quality
+    new_value = if sell_in > 0
+      quality - 2
+    else
+      quality - 4
+    end
+    new_value = 0 if new_value < 0
+    new_value
   end
 
 end

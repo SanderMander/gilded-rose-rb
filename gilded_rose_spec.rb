@@ -86,5 +86,27 @@ describe GildedRose do
         end
       end
     end
+
+    context 'Conjured item' do
+      let(:sample_item) { Item.new('Conjured apple', 2, 10) }
+
+      context 'sell_in passes' do
+        let(:sample_item) { Item.new('Conjured apple', -1, 10) }
+        it 'decrease quality by 4' do
+          expect(sample_item.quality).to eq 6
+        end
+      end
+
+      context 'lowest quality' do
+        let(:sample_item) { Item.new('Conjured apple', 1, 0) }
+        it 'not change quality' do
+          expect(sample_item.quality).to eq 0
+        end
+      end
+
+      it 'decrease quality by 2' do
+        expect(sample_item.quality).to eq 8
+      end
+    end
   end
 end
