@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require File.join(File.dirname(__FILE__), 'gilded_rose')
 
 describe GildedRose do
@@ -83,6 +85,13 @@ describe GildedRose do
         let(:days) { -1 }
         it 'drop quality to 0' do
           expect(sample_item.quality).to eq 0
+        end
+      end
+
+      context 'maximum quality' do
+        let(:sample_item) { Item.new('Backstage passes to a TAFKAL80ETC concert', 3, 50) }
+        it 'not change quality' do
+          expect(sample_item.quality).to eq 50
         end
       end
     end
